@@ -2,15 +2,34 @@
 
 A new Flutter application.
 
-## Getting Started
+## code 1
 
-This project is a starting point for a Flutter application.
+```dart
 
-A few resources to get you started if this is your first Flutter project:
+void main() {
+	final item = Item('title1', content:'content1');
+  final item2 = Item('title2', content: 'title2');
+  
+  item.toString();
+  item2.toString();
+}
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+class Item {
+  String title;
+  String content;
+  String imgSrc;
+  
+  Item(this.title, {this.content, this.imgSrc });
+  
+  
+    
+  toString() {
+    print("$title,$content,$imgSrc");
+  }
+}
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
+```
