@@ -59,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -83,7 +82,24 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Container(
                   color: Colors.yellow,
-                  child: Center(child: Text('right')),
+                  child: Column(
+                    children: <Widget>[
+                      Text("title"),
+                      Text("content"),
+                      Row(
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text('button1'),
+                            onPressed: () {},
+                          ),
+                          RaisedButton(
+                            child: Text('button2'),
+                            onPressed: () {},
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 flex: 7,
               )
