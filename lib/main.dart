@@ -46,8 +46,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Widget> list = [];
 
-  get list => getWidgets();
+  _MyHomePageState() {
+    list = getWidgets();
+  }
+//  get list => getWidgets();
 
   List<Widget> getWidgets() {
     List<Widget> list = [];
@@ -61,6 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
     list.add(new ItemWidget(item: item2));
     list.add(new ItemWidget(item: item3));
     return list;
+  }
+
+  _addItem() {
+    list.add(
+      ItemWidget(
+        item:
+        Item(title: 'KFC2',
+            content: '맥도날드는 맛있다',
+            imgSrc: "https://media-cdn.tripadvisor.com/media/photo-s/0f/b2/5f/35/this-is-what-kfc-is-famous.jpg"),
+      )
+    );
+    print('addItem, ${list.length}');
+    setState(() {
+
+    });
   }
 
   @override
@@ -80,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-//        onPressed: _incrementCounter,
+        onPressed: _addItem,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
