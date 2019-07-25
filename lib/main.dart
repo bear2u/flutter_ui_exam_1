@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'item.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,17 +46,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  get list => getWidgets();
+
+  List<Widget> getWidgets() {
+    List<Widget> list = [];
+    final item1 = Item(title: '맥도날드', content: '맥도날드는 맛있다',
+        imgSrc: "https://media-cdn.tripadvisor.com/media/photo-s/0f/b2/5f/35/this-is-what-kfc-is-famous.jpg");
+    final item2 = Item(title: '롯데리아', content: '맥도날드는 맛있다',
+        imgSrc: "https://media-cdn.tripadvisor.com/media/photo-s/0f/b2/5f/35/this-is-what-kfc-is-famous.jpg");
+    final item3 = Item(title: 'KFC', content: '맥도날드는 맛있다', imgSrc: "https://media-cdn.tripadvisor.com/media/photo-s/0f/b2/5f/35/this-is-what-kfc-is-famous.jpg");
+
+    list.add(new ItemWidget(item: item1));
+    list.add(new ItemWidget(item: item2));
+    list.add(new ItemWidget(item: item3));
+    return list;
   }
 
   @override
@@ -66,52 +72,85 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Container(
-          height: 100.0,
-          color: Colors.red,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  color: Colors.blue,
-                  child: Image.asset("assets/images/img_humburg.jpg"),
-                ),
-                flex: 3,
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.yellow,
-                  child: Column(
-                    children: <Widget>[
-                      Text("title"),
-                      Text("content"),
-                      Row(
-                        children: <Widget>[
-                          RaisedButton(
-                            child: Text('button1'),
-                            onPressed: () {},
-                          ),
-                          RaisedButton(
-                            child: Text('button2'),
-                            onPressed: () {},
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                flex: 7,
-              )
-            ],
-          ),
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return list[index];
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+//        onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class ItemWidget extends StatelessWidget {
+  Item item;
+
+  ItemWidget({
+    Key key,
+    this.item
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.0,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              child: Image.network(item.imgSrc),
+            ),
+            flex: 3,
+          ),
+          new FormWidget(item: item)
+        ],
+      ),
+    );
+  }
+}
+
+class FormWidget extends StatelessWidget {
+  Item item;
+
+  FormWidget({
+    Key key,
+    this.item
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.only(left: 5.0, right: 5.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Text(item.title),
+            Text(item.content),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text('button1'),
+                  onPressed: () {},
+                ),
+                RaisedButton(
+                  child: Text('button2'),
+                  onPressed: () {},
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+      flex: 7,
     );
   }
 }
